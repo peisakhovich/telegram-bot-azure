@@ -1,19 +1,13 @@
 import os
-
 from fastapi import FastAPI, Request
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
-from dotenv import load_dotenv
-
-load_dotenv()
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
-bot = Bot(token=BOT_TOKEN)
-
-dp = Dispatcher()
 
 app = FastAPI()
+dp = Dispatcher()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+bot = Bot(token=BOT_TOKEN)
 
 
 @app.get("/")
@@ -24,7 +18,6 @@ async def root():
 @app.post("/webhook")
 async def telegram_webhook(request: Request):
     data = await request.json()
-
     update = Update.model_validate(data)
 
     await dp.feed_update(bot, update)
