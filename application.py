@@ -1,4 +1,7 @@
+import asyncio
+
 app = None
 
-from bot import main
-main()
+from main import main
+
+asyncio.run(main())
